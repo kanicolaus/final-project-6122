@@ -1,3 +1,4 @@
+RANDOM LINKS
 https://gist.github.com/roachhd/d579b58148d7e36a6b72
 http://cplusplus.happycodings.com/games/
 https://www.quora.com/What-are-some-cool-C++-programming-projects
@@ -5,3 +6,12 @@ http://www.codewithc.com/c-projects-with-source-code/
 http://www.codeincodeblock.com/2012/04/list-of-top-ten-college-mini-projects.html
 http://gamecodeschool.com/c-plus-plus-tutorials/
 http://www.cppforschool.com/project/snake-ladder-game-project.html
+
+GITHUB ENGINES
+https://github.com/collections/game-engines
+
+MAKE YOUR OWN
+http://preshing.com/20171218/how-to-write-your-own-cpp-game-engine/
+
+SDL
+https://www.libsdl.org/download-2.0.php
