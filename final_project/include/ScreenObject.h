@@ -1,0 +1,91 @@
+//
+// Created by Tyler Brown on 4/11/2018.
+//
+
+#ifndef FINAL_PROJECT_SCREENOBJECT_H
+#define FINAL_PROJECT_SCREENOBJECT_H
+
+#include <glad/glad.h>
+
+//abstract class to represent the objects on the screen during gameplay
+class ScreenObject{
+
+protected:
+
+    //normalized x and y coordinates of the center of the texture object on the screen
+    int x_pos;
+    int y_pos;
+
+    //each screen object will have its own vertices and indices
+    float vertices[32] = {
+            // positions          // colors           // texture coords
+            1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+            1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+            -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+            -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left
+    };
+
+    unsigned int indices[6] = {
+            0, 1, 3, // first triangle
+            1, 2, 3  // second triangle
+    };
+
+    //private variable to represent the actual x y offsets of the texture
+    float x_offset;
+    float y_offset;
+
+    //variables used to aid reading in the background texture from an image
+    int width, height, nrChannels;
+
+    //each screen object will include a texture
+    GLuint texture;
+
+    //array that contains the data necessary to draw image
+    unsigned char *data;
+
+    //each screen object will need its own buffers too
+    unsigned int VBO, VAO, EBO;
+
+public:
+
+    ScreenObject() : x_pos(0), y_pos(0), x_offset(0), y_offset(0) {
+
+        //each object on the screen will need to set up its own buffers for objects
+        //thus this can be done in the base class to avoid having to retype this code
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(VAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+        // position attribute
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+        // color attribute
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+        // texture coord attribute
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
+    }
+
+    //pure virtual functions that must be implemented in the base classes that inherit this one
+    virtual bool collision() = 0;
+
+    //functions that allow the objects to move on the screen
+    virtual void moveLeft() = 0;
+    virtual void moveRight() = 0;
+    virtual void moveUp() = 0;
+    virtual void moveDown() = 0;
+
+    //function that forces all children classes to be able to be drawn on the screen
+    virtual void draw(GLuint prog) = 0;
+
+};
+
+#endif //FINAL_PROJECT_SCREENOBJECT_H

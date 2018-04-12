@@ -1,0 +1,14 @@
+Side scroller helicopter game
+- up/down keys move vertical position
+- left key holds position
+- right key moves more forward
+- obstacles take away health
+- randomly generated power ups
+	- shields for short period of time
+	- shrinking character for short period of time
+	- add health back
+	- bomb to clear all obstacles and enemies
+- stationary background with moving texture on bottom
+- increase rate of obstacle scrolling
+- enemies and weapons to combat them?
+- automatic firing with different firing modes (power up dependent)
