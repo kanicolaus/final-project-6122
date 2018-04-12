@@ -96,7 +96,7 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         //read in background image
-        data = stbi_load("background.png", &width, &height, &nrChannels, 0);
+        data = stbi_load("../textures/background.png", &width, &height, &nrChannels, 0);
 
         if(data) {
 

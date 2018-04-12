@@ -37,7 +37,8 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         //read in background image
-        data = stbi_load("sun.png", &width, &height, &nrChannels, 0);
+        // unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
+        data = stbi_load("../textures/sun.png", &width, &height, &nrChannels, 0);
 
         if(data) {
 
