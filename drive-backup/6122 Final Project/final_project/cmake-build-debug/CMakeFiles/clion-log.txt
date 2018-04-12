@@ -1,7 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2017.3.2\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\Tyler Brown\Documents\ECE 4122\final_project"
--- Could NOT find Vulkan (missing: VULKAN_LIBRARY VULKAN_INCLUDE_DIR) 
--- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
--- Using Win32 for window creation
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/Tyler Brown/Documents/ECE 4122/final_project/cmake-build-debug
