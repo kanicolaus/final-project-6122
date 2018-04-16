@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 
-//function protptype
+//function prototype
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 //array of booleans, with enough space to hold all of the possible key values on a keyboard
@@ -95,6 +95,7 @@ int main() {
         glfwSwapBuffers(window);
 
         glfwPollEvents();
+
     }
 
     glfwDestroyWindow(window);
