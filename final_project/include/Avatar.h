@@ -17,7 +17,8 @@ class Avatar : public ScreenObject {
 
 public:
 
-    Avatar() : ScreenObject() {
+    //constructor takes in start position of the object (default to center of screen)
+    Avatar(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
 
         //load the image into the texture data field
 
@@ -83,31 +84,88 @@ public:
     }
 
     //TODO: complete these functions
-    //these are not done, still want to normalize coordinates
-    virtual bool collision(){}
+    //this function goes through a vector and checks to see if the calling object is within a certain range of any other
+    //object on the screen.
+    //the only input is the vector of objects that are drawn to the screen
+    virtual ScreenObject* collision(std::vector<ScreenObject*> objects){
 
+        double dist;
+        int range = 20;
+
+        for(auto thing : objects){
+
+            //if the object being compared happens to be the calling object then ignore it
+          if(thing == this){
+
+              continue;
+
+          }
+
+            //compute the distance between this obejct and thing using cartesian coordinates
+            dist = sqrt(pow(this -> x_pos - thing->getXPos(), 2.0) + pow(this -> y_pos - thing->getYPos(), 2.0));
+
+            //if distance is less than range, return the pointer to the object that was run into
+            if(dist < range) {
+
+                return thing;
+
+            }
+        }
+
+        //if all is good return NULL
+        return NULL;
+
+    }
+
+    //these movement functions not only change the offset of the textures, they also map the movement to change in
+    //cartesian coordinates as well
     virtual void moveLeft() {
 
-        x_offset -= 0.015;
-        x_pos -= 1.5;
+        x_offset -= 0.015f;
+        x_pos -= 1.5f;
+
+        if(x_offset < -1.0) {
+
+            x_offset = -1.0f;
+            x_pos = -100.0f;
+        }
     }
 
     virtual void moveRight() {
 
-        x_offset += 0.015;
-        x_pos += 1.5;
+        x_offset += 0.015f;
+        x_pos += 1.5f;
+
+        if(x_offset > 1.0) {
+
+            x_offset = 1.0f;
+            x_pos = 100.0f;
+
+        }
     }
 
     virtual void moveUp() {
 
-        y_offset += 0.015;
-        y_pos += 1.5;
+        y_offset += 0.015f;
+        y_pos += 1.5f;
+
+        if(y_offset > 1.0) {
+
+            y_offset = 1.0f;
+            y_pos = 100.0f;
+        }
     }
 
     virtual void moveDown() {
 
-        y_offset -= 0.015;
-        y_pos -= 1.5;
+        y_offset -= 0.015f;
+        y_pos -= 1.5f;
+
+        if(y_offset < -1.0) {
+
+            y_offset = -1.0f;
+            y_pos = -100.0f;
+        }
 
     }
 
@@ -122,7 +180,6 @@ public:
         GLint transformLoc = glGetUniformLocation(prog, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
-        //glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, this -> texture);
 
         //draw the texture

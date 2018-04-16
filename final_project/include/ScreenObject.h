@@ -6,6 +6,7 @@
 #define FINAL_PROJECT_SCREENOBJECT_H
 
 #include <glad/glad.h>
+#include <vector>
 
 //abstract class to represent the objects on the screen during gameplay
 class ScreenObject{
@@ -13,8 +14,9 @@ class ScreenObject{
 protected:
 
     //normalized x and y coordinates of the center of the texture object on the screen
-    int x_pos;
-    int y_pos;
+    //these are basically cartesian coordinates that map to the offset
+    float x_pos;
+    float y_pos;
 
     //each screen object will have its own vertices and indices
     float vertices[32] = {
@@ -48,7 +50,8 @@ protected:
 
 public:
 
-    ScreenObject() : x_pos(0), y_pos(0), x_offset(0), y_offset(0) {
+    //takes in the start position of this object
+    ScreenObject(float x , float y) : x_pos(x), y_pos(y), x_offset(x/100), y_offset(y/100) {
 
         //each object on the screen will need to set up its own buffers for objects
         //thus this can be done in the base class to avoid having to retype this code
@@ -75,7 +78,7 @@ public:
     }
 
     //pure virtual functions that must be implemented in the base classes that inherit this one
-    virtual bool collision() = 0;
+    virtual ScreenObject* collision(std::vector<ScreenObject*> objects) = 0;
 
     //functions that allow the objects to move on the screen
     virtual void moveLeft() = 0;
@@ -85,6 +88,18 @@ public:
 
     //function that forces all children classes to be able to be drawn on the screen
     virtual void draw(GLuint prog) = 0;
+
+    //functions to get x_pos and y_pos outside of this class
+    float getXPos() {
+
+        return this -> x_pos;
+    }
+
+    float getYPos() {
+
+        return this -> y_pos;
+
+    }
 
 };
 
