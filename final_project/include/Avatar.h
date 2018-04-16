@@ -85,21 +85,25 @@ public:
     virtual void moveLeft() {
 
         x_offset -= 0.015;
+        x_pos -= 1.5;
     }
 
     virtual void moveRight() {
 
         x_offset += 0.015;
+        x_pos += 1.5;
     }
 
     virtual void moveUp() {
 
         y_offset += 0.015;
+        y_pos += 1.5;
     }
 
     virtual void moveDown() {
 
         y_offset -= 0.015;
+        y_pos -= 1.5;
 
     }
 
