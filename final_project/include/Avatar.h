@@ -38,12 +38,12 @@ public:
 
         //read in background image
         // unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-        data = stbi_load("../textures/sun.png", &width, &height, &nrChannels, 0);
+        data = stbi_load("../textures/sun.png", &width, &height, &nrChannels, STBI_rgb_alpha);
 
         if(data) {
 
             //this code is used to generate the texture in opengl using the image
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);
 
         } else {
@@ -76,6 +76,9 @@ public:
         //attribute these new vertices with the VAO/VBO
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,  sizeof(indices), indices, GL_STATIC_DRAW);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     }
 
