@@ -39,4 +39,6 @@ Thumbs.db
 # User Specific #
 #####################
 **/build
+**/build2
+**/build3
 **/.idea
