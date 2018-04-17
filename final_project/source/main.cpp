@@ -1,8 +1,10 @@
 #include <iostream>
+#include <cstdlib>
 #include <Avatar.h>
 #include "../include/Background.h"
 #include "../include/Shader.h"
 #include "../include/Scroller.h"
+#include "../include/Obstacle.h"
 #include <GLFW/glfw3.h>
 
 
@@ -21,6 +23,12 @@ GLFWwindow *window = nullptr;
 
 //just for testing purposes
 ScreenObject* tester;
+//IDEA FOR MOVING THE OBSTACLES: generate the max number of objects
+//that we would need off screen initially (clip them).
+//use a scroll like function to move them onto the screen (resetting 
+//when hitting the other side).
+//number of obstacles scrolled onto screen increases with time 
+ScreenObject* obstacleTest;
 
 int main() {
 
@@ -78,8 +86,11 @@ int main() {
     Background flappys_home;
     Avatar test;
     Scroller scroll;
+    Obstacle block;
 
     tester = &test;
+    obstacleTest = &block;
+
 
     glUseProgram(prog);
 
@@ -95,6 +106,8 @@ int main() {
         test.draw(prog);
 
         scroll.draw(prog);
+        block.moveLeft();
+        block.draw(prog);
 
         //swap the buffers
         glfwSwapBuffers(window);

@@ -112,5 +112,7 @@ CMakeFiles/final_project.dir/source/main.cpp.o
  ../lib/glm/vec4.hpp
  ../lib/glm/vector_relational.hpp
  /Users/karlnico/project-links/final-project-6122/final_project/include/Background.h
+ /Users/karlnico/project-links/final-project-6122/final_project/include/Obstacle.h
+ /Users/karlnico/project-links/final-project-6122/final_project/include/Scroller.h
  /Users/karlnico/project-links/final-project-6122/final_project/include/Shader.h
  /Users/karlnico/project-links/final-project-6122/final_project/source/main.cpp

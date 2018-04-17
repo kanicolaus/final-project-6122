@@ -18,7 +18,15 @@ find_package(OpenGL REQUIRED)
 add_subdirectory(lib/glfw)
 add_subdirectory(lib/glm)
 
-add_executable(${PROJECT_NAME} source/main.cpp lib/glad/src/glad.c include/Background.h include/Shader.h include/Avatar.h include/ScreenObject.h)
+add_executable(${PROJECT_NAME} 
+	source/main.cpp
+	lib/glad/src/glad.c
+	include/Background.h
+	include/Shader.h
+	include/Avatar.h
+	include/ScreenObject.h
+	include/Obstacle.h
+)
 
 target_link_libraries(${PROJECT_NAME} glfw)
 target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})

@@ -111,6 +111,8 @@ CMakeFiles/final_project.dir/source/main.cpp.o: ../lib/glm/vec3.hpp
 CMakeFiles/final_project.dir/source/main.cpp.o: ../lib/glm/vec4.hpp
 CMakeFiles/final_project.dir/source/main.cpp.o: ../lib/glm/vector_relational.hpp
 CMakeFiles/final_project.dir/source/main.cpp.o: ../include/Background.h
+CMakeFiles/final_project.dir/source/main.cpp.o: ../include/Obstacle.h
+CMakeFiles/final_project.dir/source/main.cpp.o: ../include/Scroller.h
 CMakeFiles/final_project.dir/source/main.cpp.o: ../include/Shader.h
 CMakeFiles/final_project.dir/source/main.cpp.o: ../source/main.cpp
 
