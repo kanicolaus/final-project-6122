@@ -2,7 +2,9 @@
 #include <Avatar.h>
 #include "../include/Background.h"
 #include "../include/Shader.h"
+#include "../include/Scroller.h"
 #include <GLFW/glfw3.h>
+
 
 
 //function prototype
@@ -75,6 +77,7 @@ int main() {
     //create objects to draw on the screen
     Background flappys_home;
     Avatar test;
+    Scroller scroll;
 
     tester = &test;
 
@@ -90,6 +93,8 @@ int main() {
         flappys_home.draw(prog);
         //bindText(test.getVertices(), test.getIndices());
         test.draw(prog);
+
+        scroll.draw(prog);
 
         //swap the buffers
         glfwSwapBuffers(window);

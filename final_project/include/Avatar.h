@@ -161,10 +161,10 @@ public:
         y_offset -= 0.015f;
         y_pos -= 1.5f;
 
-        if(y_offset < -1.0) {
+        if(y_offset < -0.7) {
 
-            y_offset = -1.0f;
-            y_pos = -100.0f;
+            y_offset = -0.7f;
+            y_pos = -70.0f;
         }
 
     }
