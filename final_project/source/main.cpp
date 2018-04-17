@@ -2,10 +2,12 @@
 #include <Avatar.h>
 #include "../include/Background.h"
 #include "../include/Shader.h"
+#include "../include/Scroller.h"
 #include <GLFW/glfw3.h>
 
 
-//function protptype
+
+//function prototype
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 //array of booleans, with enough space to hold all of the possible key values on a keyboard
@@ -75,6 +77,7 @@ int main() {
     //create objects to draw on the screen
     Background flappys_home;
     Avatar test;
+    Scroller scroll;
 
     tester = &test;
 
@@ -91,10 +94,13 @@ int main() {
         //bindText(test.getVertices(), test.getIndices());
         test.draw(prog);
 
+        scroll.draw(prog);
+
         //swap the buffers
         glfwSwapBuffers(window);
 
         glfwPollEvents();
+
     }
 
     glfwDestroyWindow(window);
