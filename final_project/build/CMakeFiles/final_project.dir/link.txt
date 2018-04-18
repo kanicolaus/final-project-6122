@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/c++   -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/final_project.dir/source/main.cpp.o CMakeFiles/final_project.dir/lib/glad/src/glad.c.o  -o final_project lib/glfw/src/libglfw3.a -framework OpenGL -framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo 
