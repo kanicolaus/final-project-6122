@@ -41,3 +41,4 @@ Thumbs.db
 **/build
 **/build?
 **/.idea
+**/cmake_build_debug
