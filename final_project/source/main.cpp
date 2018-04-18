@@ -146,7 +146,12 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
         tester -> moveRight();
 
+    } else if(keys[GLFW_KEY_ESCAPE]) {
+
+        glfwSetWindowShouldClose(window, 1);
+
     }
+    
 }
 
 

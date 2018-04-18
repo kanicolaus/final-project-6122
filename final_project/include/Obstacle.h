@@ -11,6 +11,7 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
+#include <cstdlib>
 
 
 class Obstacle : public ScreenObject {
@@ -42,7 +43,7 @@ public:
 
         //read in background image
         // unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-        data = stbi_load("../textures/Obstacle.png", &width, &height, &nrChannels, STBI_rgb_alpha);
+        data = stbi_load("../textures/ObstacleCircular.png", &width, &height, &nrChannels, STBI_rgb_alpha);
 
         if(data) {
 
@@ -120,6 +121,7 @@ public:
 
     }
 
+    // For now: obstacle object only move left across the screen
     virtual void moveLeft() {
 
         x_offset -= 0.015f;
@@ -127,8 +129,10 @@ public:
 
         if(x_offset < -1.0) {
 
-            x_offset = -1.0f;
-            x_pos = -100.0f;
+            x_offset = 1.0f;
+            x_pos = 100.0f;
+
+            // x_pos = -100.0f; ORIGINAL SETTING
         }
     }
 
@@ -177,7 +181,6 @@ public:
         glBindVertexArray(this -> VAO);
 
         glm::mat4 transform = glm::mat4(1.0f);
-        // transform = glm::translate(transform, glm::vec3(x_offset, y_offset, 0.0f));
         transform = glm::translate(transform, glm::vec3(x_offset, y_offset, 0.0f));
         GLint transformLoc = glGetUniformLocation(prog, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
