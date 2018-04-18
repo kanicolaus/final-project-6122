@@ -2,11 +2,10 @@
 // Created by Tyler Brown on 4/11/2018.
 //
 
-#ifndef FINAL_PROJECT_Obstacle_H
-#define FINAL_PROJECT_Obstacle_H
+#ifndef FINAL_PROJECT_OBSTACLE_H
+#define FINAL_PROJECT_OBSTACLE_H
 
 #include "ScreenObject.h"
-// #include "stb_image.h" >> already included by Avatar.h
 #include <iostream>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
@@ -19,7 +18,7 @@ class Obstacle : public ScreenObject {
 public:
 
     //constructor takes in start position of the object (default to center of screen)
-    Obstacle(float x = 90.0, float y = 75.0) : ScreenObject(x, y) {
+    Obstacle(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
         // TOP RIGHT: <100.0, 100.0>
         // BOTTOM RIGHT: <100.0, -100.0>
         // BOTTOM LEFT: <-100.0, -100.0>

@@ -28,6 +28,7 @@ ScreenObject* tester;
 //use a scroll like function to move them onto the screen (resetting 
 //when hitting the other side).
 //number of obstacles scrolled onto screen increases with time 
+//collision detection only calculated for on-screen objects
 ScreenObject* obstacleTest;
 
 int main() {
@@ -86,7 +87,7 @@ int main() {
     Background flappys_home;
     Avatar test;
     Scroller scroll;
-    Obstacle block;
+    Obstacle block(75.0, 75.0);
 
     tester = &test;
     obstacleTest = &block;
