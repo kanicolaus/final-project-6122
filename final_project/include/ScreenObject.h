@@ -111,6 +111,18 @@ public:
 
     }
 
+    void setXPos(float xpos) {
+
+        this -> x_pos = xpos;
+        this -> x_offset = xpos/100;
+    }
+
+    void setYPos(float ypos) {
+
+        this -> y_pos = ypos;
+        this -> y_offset = ypos/100;
+    }
+
 };
 
 #endif //FINAL_PROJECT_SCREENOBJECT_H

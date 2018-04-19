@@ -11,6 +11,7 @@
 
 //function prototype
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
 //array of booleans, with enough space to hold all of the possible key values on a keyboard
 bool keys[1024] = { 0 };
@@ -67,6 +68,7 @@ int main() {
 
     //set up callback functions
     glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
 
     //make sure glad is running correctly
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -94,7 +96,6 @@ int main() {
 
 
     glUseProgram(prog);
-
 
     //finally we start our render loop
     while(!glfwWindowShouldClose(window)) {
@@ -159,6 +160,35 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 
     
+}
+
+
+//TODO: fix this callback so that the cursor can control the sun accurately
+
+//callback function that is used to essentially attach the avatar object to the cursor so that
+//it can be used in game play.
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+
+    float centerX, centerY, ratioX, ratioY;
+
+    //this bit of code is calculating the x y coordinates of the center of the screen
+    centerX = w/2;
+    centerY = h/2;
+
+    //ratioX is the ratio of width to height of the screen to a more precise decimal point
+    //ratioY is the ratio of width to height of the screen which is truncated due to integer addition
+    ratioX = ((float)w / (float)h) * 10;
+    ratioY = (w/h) * 10;
+
+    //this code is adjusting xpos and ypos so that the values map to a cartesian plane
+    xpos = xpos - centerX;
+    ypos = ypos - centerY;
+
+    //this is setting the avatar's x and y coordinates
+    tester -> setXPos(xpos/ratioX);
+    tester -> setYPos(-ypos/ratioY);
+
+
 }
 
 
