@@ -20,6 +20,9 @@ public:
     //constructor takes in start position of the object (default to center of screen)
     Avatar(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
 
+        //intialize type
+        type = AVATAR;
+
         //load the image into the texture data field
 
         //flip image around

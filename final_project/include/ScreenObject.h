@@ -8,6 +8,13 @@
 #include <glad/glad.h>
 #include <vector>
 
+enum screenObjectType : int16_t {
+
+    AVATAR,
+    OBSTACLE,
+    POWERUP
+};
+
 //abstract class to represent the objects on the screen during gameplay
 class ScreenObject{
 
@@ -47,6 +54,9 @@ protected:
 
     //each screen object will need its own buffers too
     unsigned int VBO, VAO, EBO;
+
+    //type field to give the object a type specification
+    screenObjectType type;
 
 public:
 
