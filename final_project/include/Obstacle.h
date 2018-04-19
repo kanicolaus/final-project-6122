@@ -22,6 +22,12 @@ public:
         // BOTTOM RIGHT: <100.0, -100.0>
         // BOTTOM LEFT: <-100.0, -100.0>
         // TOP LEFT: <-100.0, 100.0>
+
+
+        //initialize type
+        type = OBSTACLE;
+
+
         //load the image into the texture data field
 
         //flip image around
