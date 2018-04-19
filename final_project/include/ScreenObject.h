@@ -58,6 +58,25 @@ protected:
 
     screenObjectType type;
 
+    //clock values for scrolling
+    float delta, deltaContinuous;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start, finish;
+
+    //is the object being drawn on-screen
+    bool onScreen;
+
+    //has the object been collided with
+    bool collided;
+
+    //track the number of collisions for each object (TESTING ONLY)
+    int collisionCount = 0;
+
+    //movement multiplier
+    float mm = 3.0f;
+
+    //track the number of lives (used by the avatar)
+    int lifecount = 3;
+
 
 public:
 
