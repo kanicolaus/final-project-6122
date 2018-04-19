@@ -2,8 +2,8 @@
 // Created by Tyler Brown on 4/11/2018.
 //
 
-#ifndef FINAL_PROJECT_OBSTACLE_H
-#define FINAL_PROJECT_OBSTACLE_H
+#ifndef FINAL_PROJECT_LIFESYMS_H
+#define FINAL_PROJECT_LIFESYMS_H
 
 #include "ScreenObject.h"
 #include <iostream>
@@ -12,22 +12,16 @@
 #include <gtc/type_ptr.hpp>
 
 
-class Obstacle : public ScreenObject {
+class Lifesyms : public ScreenObject {
 
 public:
 
     //constructor takes in start position of the object (default to center of screen)
-    Obstacle(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
+    Lifesyms(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
         // TOP RIGHT: <100.0, 100.0>
         // BOTTOM RIGHT: <100.0, -100.0>
         // BOTTOM LEFT: <-100.0, -100.0>
         // TOP LEFT: <-100.0, 100.0>
-
-
-        //initialize type
-        type = OBSTACLE;
-
-
         //load the image into the texture data field
 
         //flip image around
@@ -47,7 +41,7 @@ public:
 
         //read in background image
         // unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-        data = stbi_load("../textures/ObstacleCircular.png", &width, &height, &nrChannels, STBI_rgb_alpha);
+        data = stbi_load("../textures/lifeCircle.png", &width, &height, &nrChannels, STBI_rgb_alpha);
 
         if(data) {
 
@@ -89,9 +83,6 @@ public:
         // glEnable(GL_BLEND);
         // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        //start to track the time when the object is instantiated
-        start = std::chrono::high_resolution_clock::now();
-
     }
 
     //TODO: complete these functions
@@ -101,7 +92,7 @@ public:
     //the only input is the vector of objects that are drawn to the screen
     virtual bool collision(std::vector<ScreenObject*> objects){
 
-        // May not need to do much here for the obstacle class
+        // May not need to do much here for the Lifesyms class
         return false;
 
     }
@@ -115,46 +106,50 @@ public:
 
     }
 
-    // For now: obstacle object only move left across the screen
+    // For now: Lifesyms object only move left across the screen
     virtual void moveLeft() {
+
+        // x_offset -= 0.015f;
+        // x_pos -= 1.5f;
+
+        // if(x_offset < -1.0) {
+
+        //     x_offset = 1.0f;
+        //     x_pos = 100.0f;
+
+        // }
 
         finish = std::chrono::high_resolution_clock::now();
 
         delta = std::chrono::duration_cast<std::chrono::seconds>(finish - start).count();
-        // use a continuous increase in speed
-        deltaContinuous = delta / 2000.0f;
-        x_offset = x_offset - (0.002 + deltaContinuous);
-        x_pos = x_offset * 100;
-        // if(delta < 10){
 
-        //     x_offset -= 0.002;
-        //     x_pos -= 0.2f;
 
-        // } else if(delta < 20) {
+        if(delta < 10){
 
-        //     x_offset -= 0.004;
-        //     x_pos -= 0.4f;
+            x_offset -= 0.002;
+            x_pos -= 0.2f;
 
-        // } else if(delta < 30) {
+        } else if(delta < 20) {
 
-        //     x_offset -= 0.008;
-        //     x_pos -= 0.8f;
+            x_offset -= 0.003;
+            x_pos -= 0.3f;
 
-        // } else {
+        } else if(delta < 30) {
 
-        //     x_offset -= 0.012;
-        //     x_pos -= 1.2f;
+            x_offset -= 0.004;
+            x_pos -= 0.4f;
 
-        // }
+        } else {
 
+            x_offset -= 0.005;
+            x_pos -= 0.5f;
+
+        }
 
         if(x_offset < -1.0f){
 
-            x_pos = rand()%200+100;
-            y_pos = rand()%170-70;
-            x_offset = x_pos / 100.0f;
-            y_offset = y_pos / 100.0f;
-
+            x_offset = 1.0f;
+            x_pos = 100.0f;
         }
 
     }
@@ -209,19 +204,6 @@ public:
 
     //function to draw this object
     virtual void draw(GLuint prog) {
-        if (collided) {
-            collided = false;
-            x_pos = rand()%200+150;
-            y_pos = rand()%170-70;
-            x_offset = x_pos / 100.0f;
-            y_offset = y_pos / 100.0f;
-        }
-        //check if the object is on screen
-        if (x_pos < 100.0f || y_pos < 100.0f || x_pos > -100.0f || y_pos > -100.0f) {
-            onScreen = true;
-        } else {
-            onScreen = false;
-        }
 
         //switch to this object's VAO
         glBindVertexArray(this -> VAO);
@@ -242,4 +224,4 @@ public:
 
 };
 
-#endif //FINAL_PROJECT_Obstacle_H
+#endif //FINAL_PROJECT_Lifesyms_H
