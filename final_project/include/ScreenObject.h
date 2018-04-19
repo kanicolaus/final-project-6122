@@ -141,14 +141,43 @@ public:
 
     void setXPos(float xpos) {
 
-        this -> x_pos = xpos;
-        this -> x_offset = xpos/100;
+        if(xpos > 100){
+
+            this -> x_pos = 100;
+            this -> x_offset = 1.0;
+
+        } else if(xpos < -100) {
+
+            this -> x_pos = -100;
+            this -> x_offset = -1.0f;
+
+        } else {
+
+            this -> x_pos = xpos;
+            this -> x_offset = xpos/100;
+
+        }
+
     }
 
     void setYPos(float ypos) {
 
-        this->y_pos = ypos;
-        this->y_offset = ypos / 100;
+        if(ypos > 100) {
+
+            this -> y_pos = 100;
+            this -> y_offset = 1.0f;
+
+        } else if(ypos < -70) {
+
+            this -> y_pos = -70;
+            this -> y_offset = -0.7f;
+
+        } else {
+
+            this->y_pos = ypos;
+            this->y_offset = ypos / 100;
+
+        }
     }
 
     void speedInc() {
