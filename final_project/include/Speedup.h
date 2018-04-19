@@ -2,8 +2,8 @@
 // Created by Tyler Brown on 4/11/2018.
 //
 
-#ifndef FINAL_PROJECT_OBSTACLE_H
-#define FINAL_PROJECT_OBSTACLE_H
+#ifndef FINAL_PROJECT_SPEEDUP_H
+#define FINAL_PROJECT_SPEEDUP_H
 
 #include "ScreenObject.h"
 #include <iostream>
@@ -12,12 +12,12 @@
 #include <gtc/type_ptr.hpp>
 
 
-class Obstacle : public ScreenObject {
+class Speedup : public ScreenObject {
 
 public:
 
     //constructor takes in start position of the object (default to center of screen)
-    Obstacle(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
+    Speedup(float x = 0.0, float y = 0.0) : ScreenObject(x, y) {
         // TOP RIGHT: <100.0, 100.0>
         // BOTTOM RIGHT: <100.0, -100.0>
         // BOTTOM LEFT: <-100.0, -100.0>
@@ -41,7 +41,7 @@ public:
 
         //read in background image
         // unsigned char *data = stbi_load(FileSystem::getPath("resources/textures/container.jpg").c_str(), &width, &height, &nrChannels, 0);
-        data = stbi_load("../textures/ObstacleCircular.png", &width, &height, &nrChannels, STBI_rgb_alpha);
+        data = stbi_load("../textures/speedUp.png", &width, &height, &nrChannels, STBI_rgb_alpha);
 
         if(data) {
 
@@ -68,11 +68,11 @@ public:
         vertices[8] = 0.05f;
         vertices[9] = -0.05f;
 
-        //bottom left (x,y)
+        //top left (x,y)
         vertices[16] = -0.05f;
         vertices[17] = -0.05f;
 
-        //top left (x,y)
+        //bottom left (x,y)
         vertices[24] = -0.05f;
         vertices[25] = 0.05f;
 
@@ -82,8 +82,6 @@ public:
 
         // glEnable(GL_BLEND);
         // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        //start to track the time when the object is instantiated
         start = std::chrono::high_resolution_clock::now();
 
     }
@@ -95,7 +93,7 @@ public:
     //the only input is the vector of objects that are drawn to the screen
     virtual bool collision(std::vector<ScreenObject*> objects){
 
-        // May not need to do much here for the obstacle class
+        // May not need to do much here for the Speedup class
         return false;
 
     }
@@ -109,46 +107,41 @@ public:
 
     }
 
-    // For now: obstacle object only move left across the screen
+    // For now: Speedup object only move left across the screen
     virtual void moveLeft() {
 
         finish = std::chrono::high_resolution_clock::now();
 
         delta = std::chrono::duration_cast<std::chrono::seconds>(finish - start).count();
-        // use a continuous increase in speed
-        deltaContinuous = delta / 2000.0f;
-        x_offset = x_offset - (0.002 + deltaContinuous);
-        x_pos = x_offset * 100;
-        // if(delta < 10){
 
-        //     x_offset -= 0.002;
-        //     x_pos -= 0.2f;
 
-        // } else if(delta < 20) {
+        if(delta < 10){
 
-        //     x_offset -= 0.004;
-        //     x_pos -= 0.4f;
+            x_offset -= mm*0.002;
+            x_pos -= mm*0.2f;
 
-        // } else if(delta < 30) {
+        } else if(delta < 20) {
 
-        //     x_offset -= 0.008;
-        //     x_pos -= 0.8f;
+            x_offset -= mm*0.003;
+            x_pos -= mm*0.3f;
 
-        // } else {
+        } else if(delta < 30) {
 
-        //     x_offset -= 0.012;
-        //     x_pos -= 1.2f;
+            x_offset -= mm*0.004;
+            x_pos -= mm*0.4f;
 
-        // }
+        } else {
 
+            x_offset -= mm*0.005;
+            x_pos -= mm*0.5f;
+
+        }
 
         if(x_offset < -1.0f){
 
-            x_pos = rand()%200+100;
-            y_pos = rand()%170-70;
-            x_offset = x_pos / 100.0f;
-            y_offset = y_pos / 100.0f;
-
+            // x_offset = 1.0f;
+            // x_pos = 100.0f;
+            collided = true;
         }
 
     }
@@ -205,7 +198,7 @@ public:
     virtual void draw(GLuint prog) {
         if (collided) {
             collided = false;
-            x_pos = rand()%200+150;
+            x_pos = rand()%100+300;
             y_pos = rand()%170-70;
             x_offset = x_pos / 100.0f;
             y_offset = y_pos / 100.0f;
@@ -236,4 +229,4 @@ public:
 
 };
 
-#endif //FINAL_PROJECT_Obstacle_H
+#endif //FINAL_PROJECT_Speedup_H

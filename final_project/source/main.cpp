@@ -1,10 +1,14 @@
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include <Avatar.h>
 #include "../include/Background.h"
 #include "../include/Shader.h"
 #include "../include/Scroller.h"
 #include "../include/Obstacle.h"
+#include "../include/Lifetext.h"
+#include "../include/Lifesyms.h"
+#include "../include/Speedup.h"
 #include <GLFW/glfw3.h>
 
 
@@ -22,16 +26,32 @@ int h,w;
 GLFWwindow *window = nullptr;
 
 //just for testing purposes
-ScreenObject* tester;
-//IDEA FOR MOVING THE OBSTACLES: generate the max number of objects
-//that we would need off screen initially (clip them).
-//use a scroll like function to move them onto the screen (resetting 
-//when hitting the other side).
-//number of obstacles scrolled onto screen increases with time 
-//collision detection only calculated for on-screen objects
-ScreenObject* obstacleTest;
+// AVATAR
+ScreenObject* tester; 
+// OBSTACLES
+ScreenObject* obstacle0;
+ScreenObject* obstacle1;
+ScreenObject* obstacle2;
+ScreenObject* obstacle3;
+ScreenObject* obstacle4;
+// SPEEDUPS
+ScreenObject* powerup0;
+ScreenObject* powerup1;
+ScreenObject* powerup2;
+ScreenObject* powerup3;
+ScreenObject* powerup4;
+// LIFE TEXT
+ScreenObject* lifetext0;
+// LIFE SYMBOLS
+ScreenObject* lifesym0;
+ScreenObject* lifesym1;
+ScreenObject* lifesym2;
+
 
 int main() {
+
+    //seed random number generators
+    std::srand( std::time(NULL) );
 
     //this is initializing glfw
     if(!glfwInit()) {
@@ -87,11 +107,32 @@ int main() {
     Background flappys_home;
     Avatar test;
     Scroller scroll;
-    Obstacle block(75.0, 75.0);
+    Obstacle block0(rand()%200+100, rand()%170-70);
+    Obstacle block1(rand()%200+100, rand()%170-70);
+    Obstacle block2(rand()%200+100, rand()%170-70);
+    Obstacle block3(rand()%200+100, rand()%170-70);
+    Obstacle block4(rand()%200+100, rand()%170-70);
+    Speedup spboost0(rand()%300+101, rand()%170-70);
+    Lifetext lives;
+    Lifesyms life0(-70.0f, -90.0f);
+    Lifesyms life1(-58.0f, -90.0f);
+    Lifesyms life2(-46.0f, -90.0f);
 
     tester = &test;
-    obstacleTest = &block;
+    obstacle0 = &block0;
+    obstacle1 = &block1;
+    obstacle2 = &block2;
+    obstacle3 = &block3;
+    obstacle4 = &block4;
+    powerup0 = &spboost0;
+    lifetext0 = &lives;
+    lifesym0 = &life0;
+    lifesym1 = &life1;
+    lifesym2 = &life2;
 
+    // Store all obstacles in an array for collision detection
+    std::vector<ScreenObject*> OBSTACLES = { obstacle0, obstacle1, obstacle2, obstacle3, obstacle4 };
+    std::vector<ScreenObject*> SPEEDUPS = { powerup0 };
 
     glUseProgram(prog);
 
@@ -107,8 +148,55 @@ int main() {
         test.draw(prog);
 
         scroll.draw(prog);
-        block.moveLeft();
-        block.draw(prog);
+
+        block0.moveLeft();
+        block1.moveLeft();
+        block2.moveLeft();
+        block3.moveLeft();
+        block4.moveLeft();
+        block0.draw(prog);
+        block1.draw(prog);
+        block2.draw(prog);
+        block3.draw(prog);
+        block4.draw(prog);
+
+        spboost0.moveLeft();
+        spboost0.draw(prog);
+
+        lives.draw(prog);
+        if (test.getLifeCount(0) == 3) {
+            life0.draw(prog);
+            life1.draw(prog);
+            life2.draw(prog);
+        } else if (test.getLifeCount(0) == 2) {
+            life0.draw(prog);
+            life1.draw(prog);
+        } else if (test.getLifeCount(0) == 1) {
+            life0.draw(prog);
+        } else if (test.getLifeCount(0) == 0) {
+            // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
+        } 
+
+
+        // check if the avatar has collided with any obstacles on screen
+        if(test.collision(OBSTACLES)) {
+            if(test.TESTING_MODE) std::cout << "Collision detected with OBSTACLE" << std::endl;
+            block0.resetPosition();
+            block1.resetPosition();
+            block2.resetPosition();
+            block3.resetPosition();
+            block4.resetPosition();
+            test.getLifeCount(-1);
+        }
+        // check if the avatar has collided with any speedups on screen
+        if(test.collision(SPEEDUPS)) {
+            if(test.TESTING_MODE) std::cout << "Collision detected with SPEEDUP" << std::endl;
+            spboost0.resetPosition();
+            test.speedInc();
+        }
+
+
+
 
         //swap the buffers
         glfwSwapBuffers(window);

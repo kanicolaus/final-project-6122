@@ -48,7 +48,29 @@ protected:
     //each screen object will need its own buffers too
     unsigned int VBO, VAO, EBO;
 
+    //clock values for scrolling
+    float delta, deltaContinuous;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start, finish;
+
+    //is the object being drawn on-screen
+    bool onScreen;
+
+    //has the object been collided with
+    bool collided;
+
+    //track the number of collisions for each object (TESTING ONLY)
+    int collisionCount = 0;
+
+    //movement multiplier
+    float mm = 3.0f;
+
+    //track the number of lives (used by the avatar)
+    int lifecount = 3;
+
 public:
+
+    //set to true to enable console feedback
+    bool TESTING_MODE = true;
 
     //takes in the start position of this object
     ScreenObject(float x , float y) : x_pos(x), y_pos(y), x_offset(x/100), y_offset(y/100) {
@@ -78,13 +100,17 @@ public:
     }
 
     //pure virtual functions that must be implemented in the base classes that inherit this one
-    virtual ScreenObject* collision(std::vector<ScreenObject*> objects) = 0;
+    // virtual ScreenObject* collision(std::vector<ScreenObject*> objects) = 0;
+    virtual bool collision(std::vector<ScreenObject*> objects) = 0;
+    virtual void collisionHandler() = 0;
 
-    //functions that allow the objects to move on the screen
+    //functions that allow the objects to move on the screen 
     virtual void moveLeft() = 0;
     virtual void moveRight() = 0;
     virtual void moveUp() = 0;
     virtual void moveDown() = 0;
+    virtual bool onScreenCheck() = 0;
+    virtual void resetPosition() = 0;
 
     //function that forces all children classes to be able to be drawn on the screen
     virtual void draw(GLuint prog) = 0;
@@ -98,6 +124,19 @@ public:
     float getYPos() {
 
         return this -> y_pos;
+
+    }
+
+    void speedInc() {
+
+        mm += 2.0;
+
+    }
+
+    int getLifeCount(int val) {
+
+        lifecount += val;
+        return lifecount;
 
     }
 

@@ -87,33 +87,49 @@ public:
     //this function goes through a vector and checks to see if the calling object is within a certain range of any other
     //object on the screen.
     //the only input is the vector of objects that are drawn to the screen
-    virtual ScreenObject* collision(std::vector<ScreenObject*> objects){
+    // virtual ScreenObject* collision(std::vector<ScreenObject*> objects){
+    virtual bool collision(std::vector<ScreenObject*> objects){
 
         double dist;
-        int range = 20;
+        int range = 15;
+        // int collisionCount = 0;
 
         for(auto thing : objects){
 
-            //if the object being compared happens to be the calling object then ignore it
-          if(thing == this){
+            if(thing == this){
 
-              continue;
+                continue;
 
-          }
+            }
 
             //compute the distance between this obejct and thing using cartesian coordinates
-            dist = sqrt(pow(this -> x_pos - thing->getXPos(), 2.0) + pow(this -> y_pos - thing->getYPos(), 2.0));
-
+            if(thing -> onScreenCheck()) {
+                dist = sqrt(pow(this -> x_pos - thing -> getXPos(), 2.0) + pow(this -> y_pos - thing -> getYPos(), 2.0));
+            }
             //if distance is less than range, return the pointer to the object that was run into
             if(dist < range) {
 
-                return thing;
+                if (TESTING_MODE) std::cout << "[" << collisionCount << "] COLLISION DETECTED::AVATAR\n" << std::endl;
+                if (TESTING_MODE) ++collisionCount;
+                collided = true;
+                return collided;
+
+            } else {
+
+                collided = false;
 
             }
+
         }
 
         //if all is good return NULL
-        return NULL;
+        return false;
+
+    }
+
+    virtual void collisionHandler() {
+
+        // Not sure if the avatar class will need to call this
 
     }
 
@@ -121,8 +137,8 @@ public:
     //cartesian coordinates as well
     virtual void moveLeft() {
 
-        x_offset -= 0.015f;
-        x_pos -= 1.5f;
+        x_offset -= mm*0.015f;
+        x_pos -= mm*1.5f;
 
         if(x_offset < -1.0) {
 
@@ -133,8 +149,8 @@ public:
 
     virtual void moveRight() {
 
-        x_offset += 0.015f;
-        x_pos += 1.5f;
+        x_offset += mm*0.015f;
+        x_pos += mm*1.5f;
 
         if(x_offset > 1.0) {
 
@@ -146,8 +162,8 @@ public:
 
     virtual void moveUp() {
 
-        y_offset += 0.015f;
-        y_pos += 1.5f;
+        y_offset += mm*0.015f;
+        y_pos += mm*1.5f;
 
         if(y_offset > 1.0) {
 
@@ -158,8 +174,8 @@ public:
 
     virtual void moveDown() {
 
-        y_offset -= 0.015f;
-        y_pos -= 1.5f;
+        y_offset -= mm*0.015f;
+        y_pos -= mm*1.5f;
 
         if(y_offset < -0.7) {
 
@@ -168,6 +184,14 @@ public:
         }
 
     }
+
+    virtual bool onScreenCheck() {
+        
+        return onScreen;
+
+    }
+
+    virtual void resetPosition() {}
 
     //function to draw this object
     virtual void draw(GLuint prog) {

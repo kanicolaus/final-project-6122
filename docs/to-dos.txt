@@ -1,0 +1,15 @@
+<<< WHAT DO WORK ON >>>
+- enumerated list that corresponds to the screen object type; this will determine what happens when we collide with it
+	- when we collide - return the enumerated type 
+- Randomize the generation of blocks on the screen and increase the number of them on screen as time increases
+- Create a "power-up" object that modifies the "speed" at which the avatar moves
+- 
+
+KN:
+- movement power up
+- collision
+- "lives" texture
+- "gun" for the user
+
+TB:
+- movement smoothing or mouse movement as avatar inputs
