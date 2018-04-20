@@ -1,15 +1,12 @@
-<<< WHAT DO WORK ON >>>
-- enumerated list that corresponds to the screen object type; this will determine what happens when we collide with it
-	- when we collide - return the enumerated type 
-- Randomize the generation of blocks on the screen and increase the number of them on screen as time increases
-- Create a "power-up" object that modifies the "speed" at which the avatar moves
-- 
-
-KN:
-- movement power up
-- collision
-- "lives" texture
-- "gun" for the user
-
-TB:
-- movement smoothing or mouse movement as avatar inputs
+<<< WHAT TO WORK ON >>>
+- "Shooter" powerup that allows the avatar to shoot obstacles
+- "Shrink" powerup that reduces either the size of the obstacles or the size of the avatar
+- "Opening" screen
+- "Game Over" screen
+- Game settings options
+	- Game speed (rate at which objects move on screen)
+	- Starting lives
+	- Visual effects (invert colors, reverse direction of objects...)
+	- 2-Player Mode
+		- For example allow 2 avatars on screen controlled by arrow keys and WASD
+- Fancier textures
