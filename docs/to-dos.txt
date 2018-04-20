@@ -4,9 +4,9 @@
 - "Opening" screen
 - "Game Over" screen
 - Game settings options
-	- Game speed (rate at which objects move on screen)
-	- Starting lives
-	- Visual effects (invert colors, reverse direction of objects...)
-	- 2-Player Mode
-		- For example allow 2 avatars on screen controlled by arrow keys and WASD
+	+ Game speed (rate at which objects move on screen)
+	+ Starting lives
+	+ Visual effects (invert colors, reverse direction of objects...)
+	+ 2-Player Mode
+		> For example allow 2 avatars on screen controlled by arrow keys and WASD
 - Fancier textures
