@@ -259,14 +259,17 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
 
     float centerX, centerY, ratioX, ratioY;
 
+    int height, width;
+    glfwGetWindowSize(window, &width, &height);
+
     //this bit of code is calculating the x y coordinates of the center of the screen
-    centerX = w/2;
-    centerY = h/2;
+    centerX = width/2;
+    centerY = height/2;
 
     //ratioX is the ratio of width to height of the screen to a more precise decimal point
     //ratioY is the ratio of width to height of the screen which is truncated due to integer addition
-    ratioX = ((float)w / (float)h) * 10;
-    ratioY = (w/h) * 10;
+    ratioX = ((float)width / (float)height) * 10;
+    ratioY = (width/height) * 10;
 
     //this code is adjusting xpos and ypos so that the values map to a cartesian plane
     xpos = xpos - centerX;
