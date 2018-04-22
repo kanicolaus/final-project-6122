@@ -9,6 +9,7 @@
 #include "../include/Lifetext.h"
 #include "../include/Lifesyms.h"
 #include "../include/Speedup.h"
+#include "../include/ScoreBoard.h"
 #include <GLFW/glfw3.h>
 
 
@@ -132,6 +133,8 @@ int main() {
     lifesym1 = &life1;
     lifesym2 = &life2;
 
+    ScoreBoard sc;
+
     // Store all obstacles in an array for collision detection
     std::vector<ScreenObject*> OBSTACLES = { obstacle0, obstacle1, obstacle2, obstacle3, obstacle4 };
     std::vector<ScreenObject*> SPEEDUPS = { powerup0 };
@@ -195,6 +198,8 @@ int main() {
             spboost0.resetPosition();
             test.speedInc();
         }
+
+        sc.draw(prog);
 
 
 
