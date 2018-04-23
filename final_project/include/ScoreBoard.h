@@ -161,6 +161,11 @@ public:
 
     }
 
+    void setGameOver(bool game){
+
+        this -> gameOver = game;
+    }
+
 
 
 
