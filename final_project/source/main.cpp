@@ -10,6 +10,7 @@
 #include "../include/Lifesyms.h"
 #include "../include/Speedup.h"
 #include "../include/ScoreBoard.h"
+#include "../include/LeaderBoard.h"
 #include <GLFW/glfw3.h>
 
 
@@ -134,12 +135,16 @@ int main() {
     lifesym2 = &life2;
 
     ScoreBoard sc;
+    LeaderBoard lb;
 
     // Store all obstacles in an array for collision detection
     std::vector<ScreenObject*> OBSTACLES = { obstacle0, obstacle1, obstacle2, obstacle3, obstacle4 };
     std::vector<ScreenObject*> SPEEDUPS = { powerup0 };
 
     glUseProgram(prog);
+
+    //just a test variable
+    bool update = true;
 
     //finally we start our render loop
     while(!glfwWindowShouldClose(window)) {
@@ -179,6 +184,11 @@ int main() {
             life0.draw(prog);
         } else if (test.getLifeCount(0) == 0) {
             // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
+            if(update) {
+                lb.changeScore(sc.getScore());
+                update = false;
+            }
+            lb.draw(prog);
         } 
 
 
@@ -204,12 +214,14 @@ int main() {
 
 
 
+
         //swap the buffers
         glfwSwapBuffers(window);
 
         glfwPollEvents();
 
     }
+
 
     glfwDestroyWindow(window);
 

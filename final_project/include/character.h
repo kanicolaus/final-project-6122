@@ -8,6 +8,7 @@
 class character{
 
     friend class ScoreBoard;
+    friend class LeaderBoard;
 
 
 protected:
@@ -51,11 +52,16 @@ protected:
     //which image should be used
     bool use_png_2;
 
+    //char representing the character
+    char symbol;
+
 
 
 public:
 
     character(char character){
+
+        symbol = character;
 
         //each object on the screen will need to set up its own buffers for objects
         glGenVertexArrays(1, &VAO);
@@ -170,6 +176,11 @@ public:
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
+    }
+
+    char getSymbol() {
+
+        return symbol;
     }
 
 };

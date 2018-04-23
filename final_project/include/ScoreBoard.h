@@ -25,19 +25,6 @@ protected:
     //array to hold the constant "score: " character set
     character **score;
 
-    //character object arrays to hold the three top scores
-    character **p1, **p2, **p3;
-
-    //their numeric scores also
-    int p1_score, p2_score, p3_score;
-
-    //array of character objects that hold's the games resulting message (game over or New HighScore!)
-    character **gameResult;
-
-//    //file to keep track of the scores after the game ends
-//    std::ifstream inLeaderboard;
-//    std::ofstream outLeaderboard;
-
     //integer to keep track of how many letters/numbers are on the screen
     int strLen;
 
@@ -164,10 +151,12 @@ public:
 
     }
 
-    void setGameOver(bool game){
+    int getScore(){
 
-        this -> gameOver = game;
+        return num_score;
     }
+
+
 
 
 
@@ -175,20 +164,6 @@ public:
     //TODO: implement if statement in draw that draws leaderboard when gameOver is true
     //TODO: allow text input via interrupts when game is over, but only change appropriate value in leader board (use below function)
     //TODO: write results to the file in destructor
-
-
-    void displayResults(char letter){
-
-        std::ifstream inLeaderboard("Results.csv");
-        std::string result;
-
-        if(!inLeaderboard){
-
-            result = "New HighScore";
-        }
-    }
-
-
 
 
     ~ScoreBoard() {
