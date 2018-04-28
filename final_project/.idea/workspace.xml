@@ -26,6 +26,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="750">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1200">
+              <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Shader.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/Shader.h">
           <provider selected="true" editor-type-id="text-editor">
@@ -79,7 +89,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LeaderBoard.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LeaderBoard.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/LeaderBoard.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1801">
@@ -152,12 +162,12 @@
         <option value="$PROJECT_DIR$/include/Avatar.h" />
         <option value="$PROJECT_DIR$/include/Obstacle.h" />
         <option value="$PROJECT_DIR$/include/ScreenObject.h" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/ScoreBoard.h" />
         <option value="$PROJECT_DIR$/Files/Results.txt" />
         <option value="$PROJECT_DIR$/source/main.cpp" />
         <option value="$PROJECT_DIR$/include/character.h" />
         <option value="$PROJECT_DIR$/include/LeaderBoard.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -270,12 +280,12 @@
       <workItem from="1524096804608" duration="2941000" />
       <workItem from="1524101018757" duration="13621000" />
       <workItem from="1524254490410" duration="28564000" />
-      <workItem from="1524453232743" duration="42800000" />
+      <workItem from="1524453232743" duration="43265000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129791000" />
+    <option name="totallyTimeSpent" value="130256000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
@@ -663,14 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1120">
-          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/textures/num.png" />
     <entry file="file://$PROJECT_DIR$/textures/letters.png" />
     <entry file="file://$PROJECT_DIR$/textures/lives.png">
@@ -784,6 +786,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
           <folding />
         </state>
       </provider>
