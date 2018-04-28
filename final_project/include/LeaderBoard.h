@@ -8,6 +8,10 @@
 class LeaderBoard{
 
 protected:
+
+    //bool to tell the object when the game is over
+    bool gameOver;
+
     //character object arrays to hold the three top scores
     character **p1, **p2, **p3;
 
@@ -39,7 +43,7 @@ public:
     static int keystrokes;
     static int which;
 
-    LeaderBoard(){
+    LeaderBoard() : gR_len(0), i_len(0){
 
         //define beginning value of leftx and lefty
         leftx = 0.0f;
@@ -143,6 +147,8 @@ public:
             inLeaderboard.close();
 
         }
+
+
 
     }
 
@@ -365,7 +371,7 @@ public:
             //dynamically allocate a new array for p2
             character** temp_array = new character*[p2_len];
 
-            //deepcopy the name from old p1 to new p1
+            //deepcopy the name from old p2 to new p2
             for(int i = 0; i < 4; ++i){
 
                 temp_array[i] = new character(p2[i]->getSymbol());
@@ -385,7 +391,7 @@ public:
             p3 = p2;
             sp3 = sp2;
             p3_score = temp_score;
-            p3_len = p2_len;
+            p3_len = temp_p2_len;
 
             p2 = temp_array;
 
@@ -397,6 +403,8 @@ public:
             }
 
         } else if(score == p2_score || score > p3_score){//if newest score is greater than p3 score and less than or equal to p2's
+
+            std::cout << "test" << std::endl;
 
             which = 2;
 
@@ -428,11 +436,15 @@ public:
             //keep the old length temporarily
             int temp_p3_len = p3_len;
 
+            std::cout << p3_len << std::endl;
+
             //change the length
             p3_len = 4 + strlen(std::to_string(score).c_str());
 
             //dynamically allocate a new array for p1
             character** temp_array = new character*[p3_len];
+
+            std::cout << "test3" << std::endl;
 
             //deepcopy the name from old p1 to new p1
             for(int i = 0; i < 4; ++i){
@@ -440,6 +452,8 @@ public:
                 temp_array[i] = new character(p3[i]->getSymbol());
 
             }
+
+            std::cout << "test4" << std::endl;
 
             //delete p3 since he is being pushed off the list
             for(int i = 0; i < p3_len; ++i){
@@ -449,12 +463,13 @@ public:
 
             delete[] p3;
 
+
             //shift everything down the list
             //make sure to change the lengths as well
             p3 = temp_array;
 
             //now put in the new score
-            for(int i = 4; i < p1_len; ++i){
+            for(int i = 4; i < p3_len; ++i){
 
                 p3[i] = new character(std::to_string(p3_score)[i-4]);
 
@@ -493,7 +508,8 @@ public:
     //this function is only used to change letters in the leaderboard when the user hits a key
     void changeName(char letter){
 
-        if(keystrokes >= 3){
+
+        if(keystrokes > 3){
 
             return;
         }
@@ -504,25 +520,25 @@ public:
             //make sure only 3 letters entered
             switch (keystrokes) {
 
-                case 0:
+                case 1:
 
-                    delete p1[2];
-                    p1[2] = new character(letter);
-                    sp1[2] = letter;
+                    delete p1[0];
+                    p1[0] = new character(letter);
+                    sp1[0] = letter;
                     break;
 
-                case 1:
+                case 2:
 
                     delete p1[1];
                     p1[1] = new character(letter);
                     sp1[1] = letter;
                     break;
 
-                case 2:
+                case 3:
 
-                    delete p1[0];
-                    p1[0] = new character(letter);
-                    sp1[0] = letter;
+                    delete p1[2];
+                    p1[2] = new character(letter);
+                    sp1[2] = letter;
                     break;
             }
 
@@ -531,25 +547,25 @@ public:
             //make sure only 3 letters entered
             switch (keystrokes) {
 
-                case 0:
+                case 1:
 
-                    delete p2[2];
-                    p2[2] = new character(letter);
-                    sp2[2] = letter;
+                    delete p2[0];
+                    p2[0] = new character(letter);
+                    sp2[0] = letter;
                     break;
 
-                case 1:
+                case 2:
 
                     delete p2[1];
                     p2[1] = new character(letter);
                     sp2[1] = letter;
                     break;
 
-                case 2:
+                case 3:
 
-                    delete p2[0];
-                    p2[0] = new character(letter);
-                    sp2[0] = letter;
+                    delete p2[2];
+                    p2[2] = new character(letter);
+                    sp2[2] = letter;
                     break;
             }
 
@@ -558,28 +574,40 @@ public:
             //make sure only 3 letters entered
             switch (keystrokes) {
 
-                case 0:
+                case 1:
 
-                    delete p3[2];
-                    p3[2] = new character(letter);
-                    sp3[2] = letter;
+                    delete p3[0];
+                    p3[0] = new character(letter);
+                    sp3[0] = letter;
                     break;
 
-                case 1:
+                case 2:
 
                     delete p3[1];
                     p3[1] = new character(letter);
                     sp3[1] = letter;
                     break;
 
-                case 2:
+                case 3:
 
-                    delete p3[0];
-                    p3[0] = new character(letter);
-                    sp3[0] = letter;
+                    delete p3[2];
+                    p3[2] = new character(letter);
+                    sp3[2] = letter;
                     break;
             }
         }
+
+    }
+
+    //function to set the game over variable
+    void setGameOver(bool game){
+
+        this -> gameOver = game;
+    }
+
+    bool getGameOver(){
+
+        return this -> gameOver;
 
     }
 
@@ -613,20 +641,28 @@ public:
 
         delete[] p3;
 
-        for(int i = 0; i < i_len; ++i){
+        if(i_len != 0) {
 
-            delete instructions[i];
+            for (int i = 0; i < i_len; ++i) {
+
+
+                delete instructions[i];
+
+            }
+
+            delete[] instructions;
+
         }
 
-        delete[] instructions;
+        if(gR_len != 0) {
 
-        for(int i = 0; i < gR_len; ++i){
+            for (int i = 0; i < gR_len; ++i) {
 
-            delete gameResult[i];
+                delete gameResult[i];
+            }
 
+            delete[] gameResult;
         }
-
-        delete[] gameResult;
 
 
         ofile.close();
@@ -634,8 +670,8 @@ public:
     }
 };
 
-int LeaderBoard::keystrokes = 0;
-int LeaderBoard::which = 0;
+int LeaderBoard::keystrokes = 3;
+int LeaderBoard::which = -1;
 
 
 #endif //FINAL_PROJECT_LEADERBOARD_H

@@ -156,15 +156,10 @@ public:
         return num_score;
     }
 
+    void setGameOver(bool game){
 
-
-
-
-    //TODO: read in old scores from file
-    //TODO: implement if statement in draw that draws leaderboard when gameOver is true
-    //TODO: allow text input via interrupts when game is over, but only change appropriate value in leader board (use below function)
-    //TODO: write results to the file in destructor
-
+        this -> gameOver = game;
+    }
 
     ~ScoreBoard() {
 
