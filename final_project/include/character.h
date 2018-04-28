@@ -8,6 +8,7 @@
 class character{
 
     friend class ScoreBoard;
+    friend class LeaderBoard;
 
 
 protected:
@@ -51,11 +52,16 @@ protected:
     //which image should be used
     bool use_png_2;
 
+    //char representing the character
+    char symbol;
+
 
 
 public:
 
     character(char character){
+
+        symbol = character;
 
         //each object on the screen will need to set up its own buffers for objects
         glGenVertexArrays(1, &VAO);
@@ -170,6 +176,11 @@ public:
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
+    }
+
+    char getSymbol() {
+
+        return symbol;
     }
 
 };
@@ -419,9 +430,16 @@ void character::getOffsets(char character) {
             x_br = 0.0f + 5.0f/9.0f;
             y_br = 1.0f - 2.0f/3.0f;
             break;
+        case '#':
+            use_png_2 = true;
+            x_tl = 0.0f + (6.0f/9.0f);
+            y_tl = 1.0f - 1.0f/3.0f;
+            x_br = 0.0f + 7.0f/9.0f;
+            y_br = 1.0f - 2.0f/3.0f;
+            break;
 
-        default:
-        std::cout << "default" << std::endl;
+        //default:
+//        std::cout << "default" << std::endl;
 
 
     }

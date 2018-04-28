@@ -10,6 +10,7 @@
 #include "../include/Lifesyms.h"
 #include "../include/Speedup.h"
 #include "../include/ScoreBoard.h"
+#include "../include/LeaderBoard.h"
 #include <GLFW/glfw3.h>
 
 
@@ -48,6 +49,8 @@ ScreenObject* lifetext0;
 ScreenObject* lifesym0;
 ScreenObject* lifesym1;
 ScreenObject* lifesym2;
+//LeaderBoard
+LeaderBoard* leaders;
 
 
 int main() {
@@ -134,12 +137,19 @@ int main() {
     lifesym2 = &life2;
 
     ScoreBoard sc;
+    LeaderBoard lb;
+
+    leaders = &lb;
+
 
     // Store all obstacles in an array for collision detection
     std::vector<ScreenObject*> OBSTACLES = { obstacle0, obstacle1, obstacle2, obstacle3, obstacle4 };
     std::vector<ScreenObject*> SPEEDUPS = { powerup0 };
 
     glUseProgram(prog);
+
+    //just a test variable
+    bool update = true;
 
     //finally we start our render loop
     while(!glfwWindowShouldClose(window)) {
@@ -179,6 +189,12 @@ int main() {
             life0.draw(prog);
         } else if (test.getLifeCount(0) == 0) {
             // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
+            if(update) {
+                lb.changeScore(sc.getScore());
+                lb.setGameOver(true);
+                update = false;
+            }
+            lb.draw(prog);
         } 
 
 
@@ -201,15 +217,13 @@ int main() {
 
         sc.draw(prog);
 
-
-
-
         //swap the buffers
         glfwSwapBuffers(window);
 
         glfwPollEvents();
 
     }
+
 
     glfwDestroyWindow(window);
 
@@ -249,14 +263,312 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
         glfwSetWindowShouldClose(window, 1);
 
-    }
+    } else if(keys[GLFW_KEY_A] && leaders -> getGameOver()){
 
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+
+        leaders -> changeName('a');
+        LeaderBoard::keystrokes++;
+
+    } else if(keys[GLFW_KEY_B] && leaders -> getGameOver()){
+
+
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('b');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_C] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('c');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_D] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('d');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_E] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('e');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_F] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('f');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_G] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('g');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_H] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('h');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_I] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('i');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_J] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('j');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_K] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('k');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_L] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('l');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_M] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('m');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_N] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('n');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_O] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('o');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_P] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('p');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_Q] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('q');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_R] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('r');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_S] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('s');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_T] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('t');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_U] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('u');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_V] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('v');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_W] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('w');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_X] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('x');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_Y] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+        leaders -> changeName('y');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_Z] && leaders -> getGameOver()){
+
+//        LeaderBoard::keystrokes++;
+
+        if(LeaderBoard::keystrokes > 3){
+
+            LeaderBoard::keystrokes = 3;
+
+        }
+
+        leaders -> changeName('z');
+        LeaderBoard::keystrokes++;
+
+    }else if(keys[GLFW_KEY_BACKSPACE] && leaders -> getGameOver()){
+
+
+        leaders -> changeName('#');
+
+        LeaderBoard::keystrokes--;
+
+        if(LeaderBoard::keystrokes < 1){
+
+            LeaderBoard::keystrokes = 1;
+
+        }
+
+    }
 
     
 }
 
-
-//TODO: fix this callback so that the cursor can control the sun accurately
 
 //callback function that is used to essentially attach the avatar object to the cursor so that
 //it can be used in game play.

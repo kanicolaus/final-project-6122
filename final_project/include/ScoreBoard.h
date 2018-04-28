@@ -19,14 +19,11 @@ protected:
     //bool to represent the state of the game so that I can draw either a leaderboard or a score
     bool gameOver;
 
-    //pointer to a character that holds the characters to be generated dynamically based on the score
-    //std::vector<character*> score;
-
     //array to store all the numbers so they can be swapped out faster
-    character ** numbers;
+    character **numbers;
 
     //array to hold the constant "score: " character set
-    character ** score;
+    character **score;
 
     //integer to keep track of how many letters/numbers are on the screen
     int strLen;
@@ -37,7 +34,7 @@ protected:
     //numbers to represent the x and y coordinates of the top left most point on the character being displayed
     float leftx, lefty;
 
-    //timer for increasin score
+    //timer for increasing score
     std::chrono::time_point<std::chrono::high_resolution_clock> start, finish;
 
 
@@ -59,14 +56,7 @@ public:
         leftx = 1.0f - strLen * (0.05f);
         lefty = -1.0f + 0.2f;
 
-        //now load in "score: "
-//        score.push_back(new character('s'));
-//        score.push_back(new character('c'));
-//        score.push_back(new character('o'));
-//        score.push_back(new character('r'));
-//        score.push_back(new character('e'));
-//        score.push_back(new character(':'));
-//        score.push_back(new character(' '));
+        //load the word score in permanently
         score = new character*[7];
 
         score[0] = new character('s');
@@ -161,8 +151,15 @@ public:
 
     }
 
+    int getScore(){
 
+        return num_score;
+    }
 
+    void setGameOver(bool game){
+
+        this -> gameOver = game;
+    }
 
     ~ScoreBoard() {
 
