@@ -39,7 +39,11 @@ protected:
 
 
 
+
 public:
+
+    //easter egg shhhhhh!!!
+    bool egg;
 
     ScoreBoard(){
 
@@ -153,6 +157,7 @@ public:
 
     int getScore(){
 
+        if(egg){num_score += 100;}
         return num_score;
     }
 
@@ -176,7 +181,9 @@ public:
 
         delete[] score;
         delete[] numbers;
+
     }
+
 
 
 };

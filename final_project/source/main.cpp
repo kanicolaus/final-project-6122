@@ -51,6 +51,8 @@ ScreenObject* lifesym1;
 ScreenObject* lifesym2;
 //LeaderBoard
 LeaderBoard* leaders;
+//scoreboard
+ScoreBoard* board;
 
 
 int main() {
@@ -137,8 +139,9 @@ int main() {
     lifesym2 = &life2;
 
     ScoreBoard sc;
-    LeaderBoard lb;
+    board = &sc;
 
+    LeaderBoard lb;
     leaders = &lb;
 
 
@@ -155,7 +158,7 @@ int main() {
     while(!glfwWindowShouldClose(window)) {
 
         //clear the old screen whenever we re render
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         flappys_home.draw(prog);
         //bindText(test.getVertices(), test.getIndices());
@@ -230,8 +233,10 @@ int main() {
 
 }
 
+bool T,Y,L,E;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+
 
    if(action == GLFW_PRESS) {
 
@@ -308,7 +313,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_E] && leaders -> getGameOver()){
-
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -385,7 +389,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_L] && leaders -> getGameOver()){
-
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -451,7 +454,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_R] && leaders -> getGameOver()){
-
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -473,7 +475,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_T] && leaders -> getGameOver()){
-
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -564,6 +565,25 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
         }
 
+    } else if (keys[GLFW_KEY_T]){
+
+        T = true;
+
+    } else if(keys[GLFW_KEY_Y] && T){
+
+        Y = true;
+
+    } else if(keys[GLFW_KEY_L] && T && Y) {
+
+        L = true;
+
+    } else if(keys[GLFW_KEY_E] && T && Y && L){
+
+        E = true;
+
+    } else if(keys[GLFW_KEY_R] && E){
+
+        board -> egg = true;
     }
 
 }
