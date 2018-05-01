@@ -187,7 +187,7 @@ int main() {
             life1.draw(prog);
         } else if (test.getLifeCount(0) == 1) {
             life0.draw(prog);
-        } else if (test.getLifeCount(0) == 0) {
+        } else if (test.getLifeCount(0) <= 0) {
             // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
             if(update) {
                 lb.changeScore(sc.getScore());
