@@ -187,7 +187,7 @@ int main() {
             life1.draw(prog);
         } else if (test.getLifeCount(0) == 1) {
             life0.draw(prog);
-        } else if (test.getLifeCount(0) == 0) {
+        } else if (test.getLifeCount(0) <= 0) {
             // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
             if(update) {
                 lb.changeScore(sc.getScore());
@@ -566,7 +566,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
     }
 
-    
 }
 
 
@@ -595,7 +594,6 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
     //this is setting the avatar's x and y coordinates
     tester -> setXPos(xpos/ratioX);
     tester -> setYPos(-ypos/ratioY);
-
 
 }
 

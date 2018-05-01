@@ -82,7 +82,7 @@ protected:
 public:
 
     //set to true to enable console feedback
-    bool TESTING_MODE = true;
+    bool TESTING_MODE = false;
 
     //takes in the start position of this object
     ScreenObject(float x , float y) : x_pos(x), y_pos(y), x_offset(x/100), y_offset(y/100) {

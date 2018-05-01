@@ -404,7 +404,7 @@ public:
 
         } else if(score == p2_score || score > p3_score){//if newest score is greater than p3 score and less than or equal to p2's
 
-            std::cout << "test" << std::endl;
+            //std::cout << "test" << std::endl;
 
             which = 2;
 
@@ -436,7 +436,7 @@ public:
             //keep the old length temporarily
             int temp_p3_len = p3_len;
 
-            std::cout << p3_len << std::endl;
+            //std::cout << p3_len << std::endl;
 
             //change the length
             p3_len = 4 + strlen(std::to_string(score).c_str());
@@ -444,7 +444,7 @@ public:
             //dynamically allocate a new array for p1
             character** temp_array = new character*[p3_len];
 
-            std::cout << "test3" << std::endl;
+           // std::cout << "test3" << std::endl;
 
             //deepcopy the name from old p1 to new p1
             for(int i = 0; i < 4; ++i){
@@ -453,7 +453,7 @@ public:
 
             }
 
-            std::cout << "test4" << std::endl;
+           // std::cout << "test4" << std::endl;
 
             //delete p3 since he is being pushed off the list
             for(int i = 0; i < p3_len; ++i){
