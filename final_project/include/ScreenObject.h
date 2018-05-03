@@ -12,6 +12,7 @@
 enum screenObjectType : int16_t {
 
     AVATAR,
+    MENU,
     OBSTACLE,
     POWERUP
 };
@@ -73,7 +74,7 @@ protected:
     int collisionCount = 0;
 
     //movement multiplier
-    float mm = 3.0f;
+    float mm = 1.0f;
 
     //track the number of lives (used by the avatar)
     int lifecount = 3;

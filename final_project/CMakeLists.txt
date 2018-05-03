@@ -24,6 +24,7 @@ add_executable(${PROJECT_NAME}
 	include/Background.h
 	include/Shader.h
 	include/Avatar.h
+	include/Menu.h
 	include/ScreenObject.h
 	include/Obstacle.h
 	include/ScoreBoard.h

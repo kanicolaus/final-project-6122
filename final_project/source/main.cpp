@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <Avatar.h>
+#include <Menu.h>
 #include "../include/Background.h"
 #include "../include/Shader.h"
 #include "../include/Scroller.h"
@@ -29,6 +30,12 @@ int h,w;
 GLFWwindow *window = nullptr;
 
 //just for testing purposes
+// Game Status
+gameStatusType gameStatus = MainMenu;   // enumeration indicating current game in mode
+// MENU ITEMS
+MenuArrow* arrower;         // used for selection menu items and actions
+MenuText* mainMenur;        // used for main menu texture
+MenuText* settingsMenur;     // used for settings menu tecture
 // AVATAR
 ScreenObject* tester; 
 // OBSTACLES
@@ -51,8 +58,6 @@ ScreenObject* lifesym1;
 ScreenObject* lifesym2;
 //LeaderBoard
 LeaderBoard* leaders;
-//scoreboard
-ScoreBoard* board;
 
 
 int main() {
@@ -114,6 +119,9 @@ int main() {
     //create objects to draw on the screen
     Background flappys_home;
     Avatar test;
+    MenuArrow testArrow;
+    MenuText testMainMenu(MainMenu); // set texture for Main Menu
+    MenuText testSettingsMenu(Settings); // set texture for settings menu
     Scroller scroll;
     Obstacle block0(rand()%200+100, rand()%170-70);
     Obstacle block1(rand()%200+100, rand()%170-70);
@@ -127,6 +135,9 @@ int main() {
     Lifesyms life2(-46.0f, -90.0f);
 
     tester = &test;
+    arrower = &testArrow;
+    mainMenur = &testMainMenu;
+    settingsMenur = &testSettingsMenu;
     obstacle0 = &block0;
     obstacle1 = &block1;
     obstacle2 = &block2;
@@ -139,9 +150,8 @@ int main() {
     lifesym2 = &life2;
 
     ScoreBoard sc;
-    board = &sc;
-
     LeaderBoard lb;
+
     leaders = &lb;
 
 
@@ -156,75 +166,119 @@ int main() {
 
     //finally we start our render loop
     while(!glfwWindowShouldClose(window)) {
+        // Main Menu render
+        while (!glfwWindowShouldClose(window) && gameStatus == MainMenu) {
 
-        //clear the old screen whenever we re render
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            //clear the old screen whenever we re render
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        flappys_home.draw(prog);
-        //bindText(test.getVertices(), test.getIndices());
-        test.draw(prog);
+            // update menu status
+            arrower->gameStatus = gameStatus;
+            flappys_home.draw(prog);
+            testArrow.draw(prog);
+            testMainMenu.draw(prog);
 
-        scroll.draw(prog);
+            //swap the buffers
+            glfwSwapBuffers(window);
 
-        block0.moveLeft();
-        block1.moveLeft();
-        block2.moveLeft();
-        block3.moveLeft();
-        block4.moveLeft();
-        block0.draw(prog);
-        block1.draw(prog);
-        block2.draw(prog);
-        block3.draw(prog);
-        block4.draw(prog);
+            glfwPollEvents();
 
-        spboost0.moveLeft();
-        spboost0.draw(prog);
+        }
+        // Settings Menu render
+        while (!glfwWindowShouldClose(window) && gameStatus == Settings) {
 
-        lives.draw(prog);
-        if (test.getLifeCount(0) == 3) {
-            life0.draw(prog);
-            life1.draw(prog);
-            life2.draw(prog);
-        } else if (test.getLifeCount(0) == 2) {
-            life0.draw(prog);
-            life1.draw(prog);
-        } else if (test.getLifeCount(0) == 1) {
-            life0.draw(prog);
-        } else if (test.getLifeCount(0) <= 0) {
-            // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
-            if(update) {
-                lb.changeScore(sc.getScore());
-                lb.setGameOver(true);
-                update = false;
+            //clear the old screen whenever we re render
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            // update menu status
+            arrower->gameStatus = gameStatus;
+            flappys_home.draw(prog);
+            testSettingsMenu.draw(prog);
+
+            //swap the buffers
+            glfwSwapBuffers(window);
+
+            glfwPollEvents();
+
+        }
+        // Run Game render
+        while (!glfwWindowShouldClose(window) && (gameStatus == Run || gameStatus == Dead)) {
+
+            //clear the old screen whenever we re render
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            // update menu status
+            arrower->gameStatus = gameStatus;
+            flappys_home.draw(prog);
+            //bindText(test.getVertices(), test.getIndices());
+            test.draw(prog);
+
+            scroll.draw(prog);
+
+            block0.moveLeft();
+            block1.moveLeft();
+            block2.moveLeft();
+            block3.moveLeft();
+            block4.moveLeft();
+            block0.draw(prog);
+            block1.draw(prog);
+            block2.draw(prog);
+            block3.draw(prog);
+            block4.draw(prog);
+
+            spboost0.moveLeft();
+            spboost0.draw(prog);
+
+            lives.draw(prog);
+            if (test.getLifeCount(0) == 3) {
+                life0.draw(prog);
+                life1.draw(prog);
+                life2.draw(prog);
+            } else if (test.getLifeCount(0) == 2) {
+                life0.draw(prog);
+                life1.draw(prog);
+            } else if (test.getLifeCount(0) == 1) {
+                life0.draw(prog);
+            } else if (test.getLifeCount(0) <= 0) {
+                // std::cout << "LIVES EXPIRED, THANKS FOR PLAYING" << std::endl;
+                if (gameStatus == Run) {
+                    gameStatus = Dead;
+                }
+
+                if (update) {
+                    lb.changeScore(sc.getScore());
+                    lb.setGameOver(true);
+                    update = false;
+                }
+                lb.draw(prog);
             }
-            lb.draw(prog);
-        } 
 
 
-        // check if the avatar has collided with any obstacles on screen
-        if(test.collision(OBSTACLES)) {
-            if(test.TESTING_MODE) std::cout << "Collision detected with OBSTACLE" << std::endl;
-            block0.resetPosition();
-            block1.resetPosition();
-            block2.resetPosition();
-            block3.resetPosition();
-            block4.resetPosition();
-            test.getLifeCount(-1);
+            // check if the avatar has collided with any obstacles on screen
+            if (test.collision(OBSTACLES)) {
+                if (test.TESTING_MODE) std::cout << "Collision detected with OBSTACLE" << std::endl;
+                block0.resetPosition();
+                block1.resetPosition();
+                block2.resetPosition();
+                block3.resetPosition();
+                block4.resetPosition();
+                test.getLifeCount(-1);
+            }
+            // check if the avatar has collided with any speedups on screen
+            if (test.collision(SPEEDUPS)) {
+                if (test.TESTING_MODE) std::cout << "Collision detected with SPEEDUP" << std::endl;
+                spboost0.resetPosition();
+                test.speedInc();
+            }
+
+            sc.draw(prog);
+
+            //swap the buffers
+            glfwSwapBuffers(window);
+
+            glfwPollEvents();
+
         }
-        // check if the avatar has collided with any speedups on screen
-        if(test.collision(SPEEDUPS)) {
-            if(test.TESTING_MODE) std::cout << "Collision detected with SPEEDUP" << std::endl;
-            spboost0.resetPosition();
-            test.speedInc();
-        }
-
-        sc.draw(prog);
-
-        //swap the buffers
-        glfwSwapBuffers(window);
-
-        glfwPollEvents();
-
     }
 
 
@@ -233,10 +287,8 @@ int main() {
 
 }
 
-bool T,Y,L,E;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
-
 
    if(action == GLFW_PRESS) {
 
@@ -248,13 +300,26 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
     }
 
-    if(keys[GLFW_KEY_UP]) {
+    if(keys[GLFW_KEY_ENTER]) {
 
-        tester -> moveUp();
+        gameStatus = arrower->enterPressed();
+        arrower->resetPosition();
+
+    } else if(keys[GLFW_KEY_UP]) {
+
+        if(gameStatus == MainMenu) {
+            arrower->moveUp();
+        } else {
+            tester->moveUp();
+        }
 
     } else if(keys[GLFW_KEY_DOWN]) {
 
-        tester -> moveDown();
+        if(gameStatus == MainMenu) {
+            arrower->moveDown();
+        } else {
+            tester -> moveDown();
+        }
 
     } else if(keys[GLFW_KEY_LEFT]) {
 
@@ -313,6 +378,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_E] && leaders -> getGameOver()){
+
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -389,6 +455,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_L] && leaders -> getGameOver()){
+
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -454,6 +521,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_R] && leaders -> getGameOver()){
+
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -475,6 +543,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         LeaderBoard::keystrokes++;
 
     }else if(keys[GLFW_KEY_T] && leaders -> getGameOver()){
+
 //        LeaderBoard::keystrokes++;
         if(LeaderBoard::keystrokes > 3){
 
@@ -565,25 +634,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
         }
 
-    } else if (keys[GLFW_KEY_T]){
-
-        T = true;
-
-    } else if(keys[GLFW_KEY_Y] && T){
-
-        Y = true;
-
-    } else if(keys[GLFW_KEY_L] && T && Y) {
-
-        L = true;
-
-    } else if(keys[GLFW_KEY_E] && T && Y && L){
-
-        E = true;
-
-    } else if(keys[GLFW_KEY_R] && E){
-
-        board -> egg = true;
     }
 
 }

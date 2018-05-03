@@ -122,7 +122,7 @@ public:
 
         delta = std::chrono::duration_cast<std::chrono::seconds>(finish - start).count();
         // use a continuous increase in speed
-        deltaContinuous = delta / 2000.0f;
+        deltaContinuous = delta / 8000.0f;
         x_offset = x_offset - (0.002 + deltaContinuous);
         x_pos = x_offset * 100;
         // if(delta < 10){
