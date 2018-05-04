@@ -281,7 +281,10 @@ int main() {
                 block2.resetPosition();
                 block3.resetPosition();
                 block4.resetPosition();
-                test.getLifeCount(-1);
+                if (test.getLifeCount(0) > 0) {
+                    test.getLifeCount(-1);    
+                }
+                
             }
             // check if the avatar has collided with any speedups on screen
             if (test.collision(SPEEDUPS)) {
