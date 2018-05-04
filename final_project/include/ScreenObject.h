@@ -62,7 +62,7 @@ protected:
 
     //clock values for scrolling
     float delta, deltaContinuous;
-    std::chrono::time_point<std::chrono::high_resolution_clock> start, finish;
+    // std::chrono::time_point<std::chrono::high_resolution_clock> start, finish;
 
     //is the object being drawn on-screen
     bool onScreen;
@@ -81,6 +81,9 @@ protected:
 
 
 public:
+
+    std::chrono::time_point<std::chrono::high_resolution_clock> start, finish;
+
 
     //set to true to enable console feedback
     bool TESTING_MODE = false;
@@ -124,6 +127,7 @@ public:
     virtual void moveDown() = 0;
     virtual bool onScreenCheck() = 0;
     virtual void resetPosition() = 0;
+
 
     //function that forces all children classes to be able to be drawn on the screen
     virtual void draw(GLuint prog) = 0;
@@ -191,6 +195,12 @@ public:
 
         lifecount += val;
         return lifecount;
+
+    }
+
+    void resetTime() {
+
+        start = std::chrono::high_resolution_clock::now();
 
     }
 

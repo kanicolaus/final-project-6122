@@ -121,31 +121,11 @@ public:
         finish = std::chrono::high_resolution_clock::now();
 
         delta = std::chrono::duration_cast<std::chrono::seconds>(finish - start).count();
+
         // use a continuous increase in speed
         deltaContinuous = delta / 8000.0f;
         x_offset = x_offset - (0.002 + deltaContinuous);
         x_pos = x_offset * 100;
-        // if(delta < 10){
-
-        //     x_offset -= 0.002;
-        //     x_pos -= 0.2f;
-
-        // } else if(delta < 20) {
-
-        //     x_offset -= 0.004;
-        //     x_pos -= 0.4f;
-
-        // } else if(delta < 30) {
-
-        //     x_offset -= 0.008;
-        //     x_pos -= 0.8f;
-
-        // } else {
-
-        //     x_offset -= 0.012;
-        //     x_pos -= 1.2f;
-
-        // }
 
 
         if(x_offset < -1.0f){
