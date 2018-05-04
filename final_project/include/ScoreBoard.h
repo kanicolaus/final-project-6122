@@ -151,6 +151,10 @@ public:
 
     }
 
+    void resetScore() {
+        start = std::chrono::high_resolution_clock::now();
+    }
+
     int getScore(){
 
         return num_score;

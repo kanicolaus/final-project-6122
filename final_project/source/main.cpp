@@ -15,7 +15,6 @@
 #include <GLFW/glfw3.h>
 
 
-
 //function prototype
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
@@ -180,11 +179,14 @@ int main() {
                 block2.resetPosition();
                 block3.resetPosition();
                 block4.resetPosition();
+                spboost0.resetPosition();
                 block0.resetTime();
                 block1.resetTime();
                 block2.resetTime();
                 block3.resetTime();
                 block4.resetTime();
+                sc.resetScore();
+                update = true;
             }
 
 
