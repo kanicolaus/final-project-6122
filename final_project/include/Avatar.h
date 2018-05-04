@@ -140,8 +140,8 @@ public:
     //cartesian coordinates as well
     virtual void moveLeft() {
 
-        x_offset -= mm*0.015f;
-        x_pos -= mm*1.5f;
+        x_offset -= mm*0.030f;
+        x_pos -= mm*3.0f;
 
         if(x_offset < -1.0) {
 
@@ -152,8 +152,8 @@ public:
 
     virtual void moveRight() {
 
-        x_offset += mm*0.015f;
-        x_pos += mm*1.5f;
+        x_offset += mm*0.030f;
+        x_pos += mm*3.0f;
 
         if(x_offset > 1.0) {
 
@@ -165,8 +165,8 @@ public:
 
     virtual void moveUp() {
 
-        y_offset += mm*0.015f;
-        y_pos += mm*1.5f;
+        y_offset += mm*0.030f;
+        y_pos += mm*3.0f;
 
         if(y_offset > 1.0) {
 
@@ -177,8 +177,8 @@ public:
 
     virtual void moveDown() {
 
-        y_offset -= mm*0.015f;
-        y_pos -= mm*1.5f;
+        y_offset -= mm*0.030f;
+        y_pos -= mm*3.0f;
 
         if(y_offset < -0.7) {
 

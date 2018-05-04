@@ -21,7 +21,6 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
 
 //array of booleans, with enough space to hold all of the possible key values on a keyboard
 bool keys[1024] = { 0 };
-bool newgame = 1;
 
 //height and width of the window being displayed by opengl
 int h,w;
@@ -172,8 +171,8 @@ int main() {
             //clear the old screen whenever we re render
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            while (test.getLifeCount(0) != 3) {
-                test.getLifeCount(1);
+            while (test.getLifeCount(0) <= 0) {
+                test.getLifeCount(3);
                 block0.resetPosition();
                 block1.resetPosition();
                 block2.resetPosition();
@@ -186,6 +185,8 @@ int main() {
                 block3.resetTime();
                 block4.resetTime();
                 sc.resetScore();
+                test.resetSpeedMods();
+                spboost0.resetSpeedMods();
                 update = true;
             }
 

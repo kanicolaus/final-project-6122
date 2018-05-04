@@ -204,6 +204,12 @@ public:
 
     }
 
+    void resetSpeedMods() {
+
+        mm = 1.0f;
+
+    }
+
 };
 
 #endif //FINAL_PROJECT_SCREENOBJECT_H
